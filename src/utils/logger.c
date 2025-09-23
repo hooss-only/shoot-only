@@ -14,7 +14,7 @@ void LOG_printf(log_level_t log_level, const char* format, ...) {
         
         if (log_level <= global_log_level) {
                 printf("[%s] ", logger_name);
-                printf(format, args);
+                vprintf(format, args);
         }
 
         va_end(args);
