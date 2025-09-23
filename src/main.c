@@ -21,8 +21,11 @@ int main(int argc, char* argv[]) {
                 if (!renderer) {
                         return 0;
                 } else {
+                        LOG_set_logger_name("GAMELOOP");
+                        int frame = 0;
                         bool running = true;
                         while (running) {
+                                LOG_printf(LOG_DEBUG, "running! %d\n", frame++);
                                 SDL_Event e;
 
                                 SDL_WaitEvent(&e);
