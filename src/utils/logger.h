@@ -3,9 +3,9 @@
 
 typedef enum {
         LOG_NORMAL,
-        LOG_DEBUG,
         LOG_WARNING,
         LOG_ERROR,
+        LOG_DEBUG,
         LOG_ALL
 } log_level_t;
 

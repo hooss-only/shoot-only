@@ -5,7 +5,7 @@
 #include <stdio.h>
 
 char logger_name[10] = "Main";
-log_level_t global_log_level = LOG_NORMAL;
+log_level_t global_log_level = LOG_ERROR;
 
 void print_log_level(log_level_t log_level);
 
