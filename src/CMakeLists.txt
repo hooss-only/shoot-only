@@ -1,5 +1,6 @@
 target_sources(${PROJECT_NAME} PRIVATE 
   main.c
+  player.c
   utils/logger.c
 )
 

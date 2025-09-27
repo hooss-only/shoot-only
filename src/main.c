@@ -1,8 +1,17 @@
 #include <SDL2/SDL.h>
 #include <stdbool.h>
 
+#include "player.h"
+#include "utils/logger.h"
+
 #define SCREEN_WIDTH 800
 #define SCREEN_HEIGHT 600
+
+struct player player;
+
+void init_game(SDL_Renderer* renderer);
+
+void render(SDL_Renderer* renderer);
 
 int main(int argc, char* argv[]) {
         if (SDL_Init(SDL_INIT_VIDEO) < 0) {
@@ -19,6 +28,7 @@ int main(int argc, char* argv[]) {
                 if (!renderer) {
                         return 0;
                 } else {
+                        init_game(renderer);
                         bool running = true;
                         while (running) {
                                 SDL_Event e;
@@ -31,6 +41,8 @@ int main(int argc, char* argv[]) {
                                 
                                 SDL_SetRenderDrawColor(renderer, 0x00, 0x00, 0x00, 0xFF);
                                 SDL_RenderClear(renderer);
+
+                                render(renderer);
                                 
                                 SDL_RenderPresent(renderer);
                         }
@@ -42,4 +54,13 @@ int main(int argc, char* argv[]) {
         SDL_Quit();
 
         return 0;
+}
+
+void init_game(SDL_Renderer* renderer) {
+        LOG_printf(LOG_DEBUG, "Initiate game");
+        init_player(&player, renderer);
+}
+
+void render(SDL_Renderer* renderer) {
+        render_player(&player);       
 }
