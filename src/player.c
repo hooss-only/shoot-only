@@ -14,7 +14,7 @@ void init_player(struct player* self, SDL_Renderer* renderer) {
         self->rect.h = 4 * 4;
         self->texture = IMG_LoadTexture(self->renderer, "./assets/player.png");
 
-        self->speed = 100;
+        self->speed = 0.03;
 
         self->vx = 0;
         self->vy = 0;
@@ -74,8 +74,8 @@ void handle_player_event(struct player* self, SDL_Event* e) {
 
 void tick_player(struct player* self, float dt) {
         LOG_set_logger_name("Player");
-        self->vx += self->ax * dt;
-        self->vy += self->ay * dt;
+        self->vx += self->ax;
+        self->vy += self->ay;
         float nx = 0, ny = 0;
         nx = self->x + self->vx  * dt;
         ny = self->y + self->vy * dt;
