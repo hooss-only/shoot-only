@@ -1,4 +1,5 @@
 #include "player.h"
+#include "missiles.h"
 #include "utils/logger.h"
 
 #include <SDL2/SDL_image.h>
@@ -39,6 +40,9 @@ void handle_player_event(struct player* self, SDL_Event* e) {
                                 break;
                         case SDL_SCANCODE_A:
                                 self->ax -= self->speed;
+                                break;
+                        case SDL_SCANCODE_SPACE:
+                                add_missile(self->x+4, self->y);
                                 break;
                         default:
                                 break;

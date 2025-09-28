@@ -1,6 +1,9 @@
 target_sources(${PROJECT_NAME} PRIVATE 
   main.c
   player.c
+  missile.c
+  missiles.c
+  textures.c
   utils/logger.c
 )
 

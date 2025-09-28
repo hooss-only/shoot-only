@@ -1,8 +1,11 @@
 #include <SDL2/SDL.h>
 #include <stdbool.h>
 
+#include "textures.h"
 #include "player.h"
 #include "utils/logger.h"
+
+#include "missiles.h"
 
 #define SCREEN_WIDTH 800
 #define SCREEN_HEIGHT 600
@@ -18,7 +21,6 @@ void tick(float dt);
 void render(SDL_Renderer* renderer);
 
 int main(int argc, char* argv[]) {
-        LOG_set_level(LOG_DEBUG);
         if (SDL_Init(SDL_INIT_VIDEO) < 0) {
                 return 0;
         }
@@ -71,7 +73,10 @@ int main(int argc, char* argv[]) {
 }
 
 void init_game(SDL_Renderer* renderer) {
+        LOG_set_level(LOG_DEBUG);
         LOG_printf(LOG_NORMAL, "Initiate game\n");
+        init_textures(renderer);
+        set_missiles_renderer(renderer);
         init_player(&player, renderer);
 }
 
@@ -81,8 +86,10 @@ void handle_event(SDL_Event* e) {
 
 void tick(float dt) {
         tick_player(&player, dt);
+        tick_missiles(dt);
 }
 
 void render(SDL_Renderer* renderer) {
-        render_player(&player);       
+        render_player(&player);
+        render_missiles();
 }
