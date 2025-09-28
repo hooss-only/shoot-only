@@ -20,6 +20,8 @@ void tick(float dt);
 
 void render(SDL_Renderer* renderer);
 
+void destroy();
+
 int main(int argc, char* argv[]) {
         if (SDL_Init(SDL_INIT_VIDEO) < 0) {
                 return 0;
@@ -62,6 +64,7 @@ int main(int argc, char* argv[]) {
                                 
                                 SDL_RenderPresent(renderer);
                         }
+                        destroy();
 
                         SDL_DestroyRenderer(renderer);
                 }
@@ -92,4 +95,9 @@ void tick(float dt) {
 void render(SDL_Renderer* renderer) {
         render_player(&player);
         render_missiles();
+}
+
+void destroy() {
+        destroy_player(&player);
+        destroy_textures();
 }

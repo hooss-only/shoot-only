@@ -95,3 +95,7 @@ void render_player(struct player* self) {
         self->rect.y = (int) self->y;
         SDL_RenderCopy(self->renderer, self->texture, NULL, &self->rect);
 }
+
+void destroy_player(struct player* self) {
+        SDL_DestroyTexture(self->texture);
+}
