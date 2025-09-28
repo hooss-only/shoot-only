@@ -11,14 +11,17 @@ struct player player;
 
 void init_game(SDL_Renderer* renderer);
 
+void tick(float dt);
+
 void render(SDL_Renderer* renderer);
 
 int main(int argc, char* argv[]) {
+        LOG_set_level(LOG_DEBUG);
         if (SDL_Init(SDL_INIT_VIDEO) < 0) {
                 return 0;
         }
         
-        SDL_Window *window = SDL_CreateWindow("TEST", SDL_WINDOWPOS_UNDEFINED, SDL_WINDOWPOS_UNDEFINED, SCREEN_WIDTH, SCREEN_HEIGHT, SDL_WINDOW_SHOWN);
+        SDL_Window *window = SDL_CreateWindow("shoot-only", SDL_WINDOWPOS_UNDEFINED, SDL_WINDOWPOS_UNDEFINED, SCREEN_WIDTH, SCREEN_HEIGHT, SDL_WINDOW_SHOWN);
 
         if (!window) {
                 return 0;
@@ -30,18 +33,26 @@ int main(int argc, char* argv[]) {
                 } else {
                         init_game(renderer);
                         bool running = true;
-                        while (running) {
-                                SDL_Event e;
+                        SDL_Event e;
+                        double dt = 0.f;
+                        Uint32 last_time = SDL_GetTicks();
 
-                                SDL_WaitEvent(&e);
+                        while (running) {
+                                Uint32 current_time = SDL_GetTicks();
+                                float dt = (current_time - last_time) / 1000.f;
+                                last_time = current_time;
                                 
-                                if (e.type == SDL_QUIT) {
-                                        running = false;
+                                while (SDL_PollEvent(&e) != 0) {
+                                        if (e.type == SDL_QUIT) {
+                                                running = false;
+                                        }
                                 }
+
+                                tick(dt);
                                 
                                 SDL_SetRenderDrawColor(renderer, 0x00, 0x00, 0x00, 0xFF);
                                 SDL_RenderClear(renderer);
-
+                                
                                 render(renderer);
                                 
                                 SDL_RenderPresent(renderer);
@@ -57,8 +68,12 @@ int main(int argc, char* argv[]) {
 }
 
 void init_game(SDL_Renderer* renderer) {
-        LOG_printf(LOG_DEBUG, "Initiate game");
+        LOG_printf(LOG_NORMAL, "Initiate game\n");
         init_player(&player, renderer);
+}
+
+void tick(float dt) {
+        tick_player(&player, dt);
 }
 
 void render(SDL_Renderer* renderer) {
