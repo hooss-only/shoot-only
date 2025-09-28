@@ -43,6 +43,7 @@ void handle_player_event(struct player* self, SDL_Event* e) {
                                 break;
                         case SDL_SCANCODE_SPACE:
                                 add_missile(self->x+4, self->y);
+                                self->vy += 100;
                                 break;
                         default:
                                 break;
