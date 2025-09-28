@@ -37,6 +37,6 @@ void tick_star(struct star* self, float dt) {
 void render_star(struct star* self) {
         self->rect.x = self->x;
         self->rect.y = self->y;
-        SDL_SetTextureAlphaMod(star_texture, 128);
+        SDL_SetTextureAlphaMod(star_texture, 50);
         SDL_RenderCopyEx(self->renderer, star_texture, NULL, &self->rect, self->angle, NULL, SDL_FLIP_NONE);
 }
