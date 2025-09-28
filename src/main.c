@@ -11,6 +11,8 @@ struct player player;
 
 void init_game(SDL_Renderer* renderer);
 
+void handle_event(SDL_Event* e);
+
 void tick(float dt);
 
 void render(SDL_Renderer* renderer);
@@ -42,10 +44,11 @@ int main(int argc, char* argv[]) {
                                 float dt = (current_time - last_time) / 1000.f;
                                 last_time = current_time;
                                 
-                                while (SDL_PollEvent(&e) != 0) {
-                                        if (e.type == SDL_QUIT) {
+                                while (SDL_PollEvent(&e)) {
+                                        if(e.type == SDL_QUIT) {
                                                 running = false;
                                         }
+                                        handle_event(&e);
                                 }
 
                                 tick(dt);
@@ -70,6 +73,10 @@ int main(int argc, char* argv[]) {
 void init_game(SDL_Renderer* renderer) {
         LOG_printf(LOG_NORMAL, "Initiate game\n");
         init_player(&player, renderer);
+}
+
+void handle_event(SDL_Event* e) {
+        handle_player_event(&player, e);
 }
 
 void tick(float dt) {
