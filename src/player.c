@@ -3,7 +3,6 @@
 
 #include <SDL2/SDL_image.h>
 
-
 void init_player(struct player* self, SDL_Renderer* renderer) {
         self->renderer = renderer;
         self->x = 800/2.f - 4*4/2.f;
@@ -76,12 +75,12 @@ void tick_player(struct player* self, float dt) {
         nx = self->x + self->vx  * dt;
         ny = self->y + self->vy * dt;
         
-        if (nx >= 0 && nx <= 800)
+        if (nx >= 0 && nx <= 800 - 4 * 4)
                 self->x = nx;
         else
                 self->vx = 0;
 
-        if (ny >= 0 && ny <= 600) 
+        if (ny >= 0 && ny <= 600 - 4 * 4) 
                 self->y = ny;
         else
                 self->vy = 0;
