@@ -21,6 +21,8 @@ void init_player(struct player* self, SDL_Renderer* renderer) {
 
         self->ax = 0;
         self->ay = 0;
+
+        self->hp = MAX_HP;
 }
 
 void handle_player_event(struct player* self, SDL_Event* e) {
@@ -92,6 +94,7 @@ void tick_player(struct player* self, float dt) {
 
         if (ny > 600 && self->vy > 0) {
                 self->vy = -self->vy;
+                hurt(self);
         }
 }
 
@@ -103,4 +106,8 @@ void render_player(struct player* self) {
 
 void destroy_player(struct player* self) {
         SDL_DestroyTexture(self->texture);
+}
+
+void hurt(struct player* self) {
+        self->hp -= 1;
 }

@@ -2,14 +2,14 @@
 
 #include <SDL2/SDL.h>
 
+#define MAX_HP 5
+
 struct player {
-        float x;
-        float y;
-        float vx;
-        float vy;
-        float ax;
-        float ay;
+        float x, y;
+        float vx, vy;
+        float ax, ay;
         float speed;
+        int hp;
         SDL_Rect rect;
         SDL_Texture* texture;
         SDL_Renderer* renderer;
@@ -20,3 +20,5 @@ void handle_player_event(struct player* self, SDL_Event* e);
 void tick_player(struct player* self, float dt);
 void render_player(struct player* self);
 void destroy_player(struct player* self);
+
+void hurt(struct player* self);

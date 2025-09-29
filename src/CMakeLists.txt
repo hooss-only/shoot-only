@@ -1,5 +1,6 @@
 target_sources(${PROJECT_NAME} PRIVATE 
   main.c
+  ui.c
   player.c
   star.c
   planet.c
