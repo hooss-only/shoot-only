@@ -2,7 +2,7 @@
 
 #include "utils/logger.h"
 
-SDL_Renderer* global_renderer;
+SDL_Renderer* missile_renderer;
 struct missile missiles[MAX_MISSILE] = { 0 };
 
 void add_missile(float x, float y) {
@@ -10,7 +10,7 @@ void add_missile(float x, float y) {
         LOG_printf(LOG_DEBUG, "MISSILE LAUNCH!!\n");
         for (int i=0; i<MAX_MISSILE; i++) {
                 if (!missiles[i].existance) {
-                        init_missile(&missiles[i], global_renderer);
+                        init_missile(&missiles[i], missile_renderer);
                         missiles[i].x = x;
                         missiles[i].y = y;
                         return;
@@ -20,7 +20,7 @@ void add_missile(float x, float y) {
 }
 
 void set_missiles_renderer(SDL_Renderer* renderer) {
-        global_renderer = renderer;
+        missile_renderer = renderer;
 }
 
 void render_missiles() {

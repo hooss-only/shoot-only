@@ -1,17 +1,21 @@
 #include <SDL2/SDL.h>
 #include <stdbool.h>
+#include <stdlib.h>
+#include <time.h>
 
 #include "textures.h"
 #include "player.h"
 #include "utils/logger.h"
 
 #include "missiles.h"
+#include "planets.h"
 #include "star.h"
 
 #define SCREEN_WIDTH 800
 #define SCREEN_HEIGHT 600
 
 struct player player;
+
 #define STAR_AMOUNT 100
 struct star background_star[STAR_AMOUNT];
 
@@ -81,13 +85,26 @@ int main(int argc, char* argv[]) {
 void init_game(SDL_Renderer* renderer) {
         LOG_set_level(LOG_DEBUG);
         LOG_printf(LOG_NORMAL, "Initiate game\n");
+
+        srand(time(NULL));
+
         init_textures(renderer);
-        set_missiles_renderer(renderer);
         init_player(&player, renderer);
+
+        set_missiles_renderer(renderer);
+
+        set_planets_renderer(renderer);
+        set_planets_player(&player);
 
         for (int i=0; i<STAR_AMOUNT; i++) {
                 init_star(&background_star[i], renderer);
         }
+
+        add_planet();
+        add_planet();
+        add_planet();
+        add_planet();
+        add_planet();
 }
 
 void handle_event(SDL_Event* e) {
@@ -97,6 +114,7 @@ void handle_event(SDL_Event* e) {
 void tick(float dt) {
         tick_player(&player, dt);
         tick_missiles(dt);
+        tick_planets(dt);
 
         for (int i=0; i<STAR_AMOUNT; i++) {
                 tick_star(&background_star[i], dt);
@@ -104,12 +122,13 @@ void tick(float dt) {
 }
 
 void render(SDL_Renderer* renderer) {
-        render_player(&player);
-        render_missiles();
-        
         for (int i=0; i<STAR_AMOUNT; i++) {
                 render_star(&background_star[i]);
         }
+
+        render_player(&player);
+        render_missiles();
+        render_planets();
 }
 
 void destroy() {
