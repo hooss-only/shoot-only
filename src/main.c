@@ -49,7 +49,6 @@ int main(int argc, char* argv[]) {
                         init_game(renderer);
                         bool running = true;
                         SDL_Event e;
-                        double dt = 0.f;
                         Uint32 last_time = SDL_GetTicks();
 
                         while (running) {
