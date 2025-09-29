@@ -25,7 +25,7 @@ void init_planet(struct planet* self, SDL_Renderer* renderer, struct player* pla
 bool check_collision(float x1, float y1, float x2, float y2, int r) {
         float dx = x1 - x2, dy = y1 - y2;
         return dx*dx + dy*dy < r*r;
-};
+}
 
 void tick_planet(struct planet* self, float dt) {
         self->y += self->speed * dt;
@@ -35,7 +35,11 @@ void tick_planet(struct planet* self, float dt) {
 
         int r = self->rect.w / 2;
         if (check_collision(self->x + r, self->y + r, self->player->x + 8, self->player->y + 8, r)) {
-                self->player->vy = self->speed + 50;
+                if (self->player->vy > 0) {
+                        self->player->vy = self->speed;
+                } else {
+                        self->player->vy = -self->player->vy;
+                }
         }
         
         for (int i=0; i<MAX_MISSILE; i++) {

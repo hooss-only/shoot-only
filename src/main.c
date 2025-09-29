@@ -99,12 +99,10 @@ void init_game(SDL_Renderer* renderer) {
         for (int i=0; i<STAR_AMOUNT; i++) {
                 init_star(&background_star[i], renderer);
         }
-
-        add_planet();
-        add_planet();
-        add_planet();
-        add_planet();
-        add_planet();
+        
+        for (int i=0; i<10; i++) {
+                add_planet();
+        }
 }
 
 void handle_event(SDL_Event* e) {
