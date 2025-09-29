@@ -8,7 +8,7 @@
 struct planet {
         bool existance;
         SDL_Rect rect;
-        float x, y;
+        float x, y, speed;
         double rotation;
         SDL_Renderer* renderer;
         int type;

@@ -18,6 +18,8 @@ void init_planet(struct planet* self, SDL_Renderer* renderer, struct player* pla
         self->x = rand() % (800 - width);
         self->y = -700 + rand() % 600;
 
+        self->speed = (200 * (50.f / self->rect.w) + (rand() % 100));
+
         self->player = player;
 }
 
@@ -27,17 +29,14 @@ bool check_collision(float x1, float y1, float x2, float y2, int r) {
 };
 
 void tick_planet(struct planet* self, float dt) {
-        LOG_set_logger_name("Planet");
-        LOG_printf(LOG_DEBUG, "%f %f\n", self->player->x, self->player->y);
-
-        self->y += 200 * dt;
+        self->y += self->speed * dt;
         if (self->y > 600) {
                 init_planet(self, self->renderer, self->player);
         }
 
         int r = self->rect.w / 2;
         if (check_collision(self->x + r, self->y + r, self->player->x, self->player->y, r)) {
-                self->player->vy = 300;
+                self->player->vy = self->speed + 50;
         }
 }
 
