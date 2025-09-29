@@ -13,6 +13,7 @@ void init_player(struct player* self, SDL_Renderer* renderer) {
         self->rect.w = 4 * 4;
         self->rect.h = 4 * 4;
         self->texture = IMG_LoadTexture(self->renderer, "./assets/player.png");
+        SDL_SetTextureBlendMode(self->texture, SDL_BLENDMODE_BLEND);
 
         self->speed = 0.03;
 
@@ -23,6 +24,7 @@ void init_player(struct player* self, SDL_Renderer* renderer) {
         self->ay = 0;
 
         self->hp = MAX_HP;
+        self->invincible = false;
 }
 
 void handle_player_event(struct player* self, SDL_Event* e) {
@@ -94,13 +96,17 @@ void tick_player(struct player* self, float dt) {
 
         if (ny > 600 && self->vy > 0) {
                 self->vy = -self->vy;
-                hurt(self);
+                hurt_player(self);
         }
+
+        if (self->invincible && SDL_GetTicks() - self->invincible_timer > 2000)
+                self->invincible = false;
 }
 
 void render_player(struct player* self) {
         self->rect.x = (int) self->x;
         self->rect.y = (int) self->y;
+        SDL_SetTextureAlphaMod(self->texture, self->invincible ? 128 : 255);
         SDL_RenderCopy(self->renderer, self->texture, NULL, &self->rect);
 }
 
@@ -108,6 +114,10 @@ void destroy_player(struct player* self) {
         SDL_DestroyTexture(self->texture);
 }
 
-void hurt(struct player* self) {
-        self->hp -= 1;
+void hurt_player(struct player* self) {
+        if (!self->invincible) {
+                self->hp -= 1;
+        }
+        self->invincible = true;
+        self->invincible_timer = SDL_GetTicks();
 }

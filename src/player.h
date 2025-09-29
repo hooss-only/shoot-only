@@ -10,6 +10,8 @@ struct player {
         float ax, ay;
         float speed;
         int hp;
+        bool invincible;
+        Uint32 invincible_timer;
         SDL_Rect rect;
         SDL_Texture* texture;
         SDL_Renderer* renderer;
@@ -21,4 +23,4 @@ void tick_player(struct player* self, float dt);
 void render_player(struct player* self);
 void destroy_player(struct player* self);
 
-void hurt(struct player* self);
+void hurt_player(struct player* self);
