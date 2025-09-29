@@ -90,8 +90,8 @@ void tick_player(struct player* self, float dt) {
         else
                 self->vy = 0;
 
-        if (ny > 600) {
-                self->vy = -300;
+        if (ny > 600 && self->vy > 0) {
+                self->vy = -self->vy;
         }
 }
 
