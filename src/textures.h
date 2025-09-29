@@ -8,6 +8,7 @@ extern SDL_Texture* star_texture;
 extern SDL_Texture* planet_textures[5];
 extern SDL_Texture* heart_container_texture;
 extern SDL_Texture* heart_filled_texture;
+extern SDL_Texture* score_texture;
 
 void init_textures(SDL_Renderer* renderer);
 void destroy_textures();

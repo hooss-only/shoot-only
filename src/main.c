@@ -10,6 +10,7 @@
 #include "missiles.h"
 #include "planets.h"
 #include "star.h"
+#include "score.h"
 
 #include "ui.h"
 
@@ -17,6 +18,7 @@
 #define SCREEN_HEIGHT 600
 
 struct player player;
+struct score score_coin;
 
 #define STAR_AMOUNT 100
 struct star background_star[STAR_AMOUNT];
@@ -91,6 +93,7 @@ void init_game(SDL_Renderer* renderer) {
 
         init_textures(renderer);
         init_player(&player, renderer);
+        init_score(&score_coin, renderer, &player);
 
         set_missiles_renderer(renderer);
 
@@ -116,6 +119,7 @@ void tick(float dt) {
         tick_missiles(dt);
         tick_planets(dt);
         tick_ui(dt);
+        tick_score(&score_coin, dt);
 
         for (int i=0; i<STAR_AMOUNT; i++) {
                 tick_star(&background_star[i], dt);
@@ -128,6 +132,7 @@ void render(SDL_Renderer* renderer) {
         }
 
         render_player(&player);
+        render_score(&score_coin);
         render_missiles();
         render_planets();
         render_ui(renderer);

@@ -7,6 +7,7 @@ SDL_Texture* star_texture = NULL;
 SDL_Texture* planet_textures[5] = { 0 };
 SDL_Texture* heart_container_texture = NULL;
 SDL_Texture* heart_filled_texture = NULL;
+SDL_Texture* score_texture = NULL;
 
 void init_textures(SDL_Renderer* renderer) {
         missile_texture = IMG_LoadTexture(renderer, "./assets/missile.png");
@@ -20,6 +21,7 @@ void init_textures(SDL_Renderer* renderer) {
 
         heart_container_texture = IMG_LoadTexture(renderer, "./assets/heart_container.png");
         heart_filled_texture = IMG_LoadTexture(renderer, "./assets/heart_filled.png");
+        score_texture = IMG_LoadTexture(renderer, "./assets/score.png");
         
 }
 
@@ -31,4 +33,5 @@ void destroy_textures() {
         }
         SDL_DestroyTexture(heart_container_texture);
         SDL_DestroyTexture(heart_filled_texture);
+        SDL_DestroyTexture(score_texture);
 }
