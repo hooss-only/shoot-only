@@ -85,10 +85,14 @@ void tick_player(struct player* self, float dt) {
         else
                 self->vx = 0;
 
-        if (ny >= 0 && ny <= 600 - 4 * 4) 
+        if (ny >= 0) 
                 self->y = ny;
         else
                 self->vy = 0;
+
+        if (ny > 600) {
+                self->vy = -300;
+        }
 }
 
 void render_player(struct player* self) {
