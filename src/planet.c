@@ -35,7 +35,7 @@ void tick_planet(struct planet* self, float dt) {
         }
 
         int r = self->rect.w / 2;
-        if (check_collision(self->x + r, self->y + r, self->player->x, self->player->y, r)) {
+        if (check_collision(self->x + r, self->y + r, self->player->x + 8, self->player->y + 8, r)) {
                 self->player->vy = self->speed + 50;
         }
 }
