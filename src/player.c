@@ -28,7 +28,7 @@ void init_player(struct player* self, SDL_Renderer* renderer) {
         self->ax = 0;
         self->ay = 0;
 
-        self->hp = 1;
+        self->hp = MAX_HP;
         self->invincible = false;
 
         self->animation_timer = 0;
