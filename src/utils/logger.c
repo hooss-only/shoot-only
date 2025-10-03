@@ -28,7 +28,7 @@ void LOG_set_level(log_level_t log_level) {
         global_log_level = log_level;
 }
 
-void LOG_set_logger_name(char name[10]) {
+void LOG_set_logger_name(const char* name) {
         strcpy(logger_name, name);
 }
 

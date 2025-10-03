@@ -13,6 +13,6 @@ void LOG_printf(log_level_t log_level, const char* format, ...);
 
 void LOG_set_level(log_level_t log_level);
 
-void LOG_set_logger_name(char name[10]);
+void LOG_set_logger_name(const char* name);
 
 #endif

@@ -1,6 +1,7 @@
 #pragma once
 
 #include <SDL2/SDL.h>
+#include <stdbool.h>
 
 #define MAX_HP 5
 
@@ -15,6 +16,12 @@ struct player {
         SDL_Rect rect;
         SDL_Texture* texture;
         SDL_Renderer* renderer;
+        
+        SDL_Texture* normal_texture;
+        SDL_Texture* animation_textures[2];
+
+        Uint32 animation_timer;
+        bool dead;
 };
 
 void init_player(struct player* self, SDL_Renderer* renderer);
